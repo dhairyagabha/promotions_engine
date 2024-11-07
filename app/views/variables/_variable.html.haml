@@ -1,0 +1,25 @@
+%li{class: "relative flex flex-wrap items-center justify-between gap-x-6 gap-y-4 py-5 sm:flex-nowrap"}
+    %div
+        %p{class: "text-md/6 font-semibold text-gray-900"}
+            #{variable.name}
+        %div{class: "mt-1 flex items-center gap-x-2 text-sm text-gray-500"}
+            #{variable.description}
+    %div{class: "flex items-center justify-between gap-x-4"}
+        %div{class: "mt-1 flex items-center gap-x-1.5"}
+            - variable_class = ""
+            - case variable.value_type
+            - when "string"
+                - variable_class = "bg-blue-50 text-blue-700 ring-blue-700/10"
+            - when "list"
+                - variable_class = "bg-indigo-50 text-indigo-700 ring-indigo-700/10"
+            - when "decimal"
+                - variable_class = "bg-green-50 text-green-700 ring-green-600/20"
+            - when "integer"
+                - variable_class = "bg-pink-50 text-pink-700 ring-pink-700/10"
+            - when "boolean"
+                - variable_class = "bg-yellow-50 text-yellow-800 ring-yellow-600/20"
+            %span{class: "inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset #{variable_class}"} #{variable.value_type.capitalize}
+        %div{class: "mt-1 flex items-center gap-x-1.5"}
+            = link_to edit_property_variable_path(property, variable), class: "cursor-pointer p-1.5" do
+                %svg.h-5.w-5{fill: "none", stroke: "currentColor", "stroke-width" => "1.5", viewbox: "0 0 24 24", xmlns: "http://www.w3.org/2000/svg"}
+                    %path{d: "m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125", "stroke-linecap" => "round", "stroke-linejoin" => "round"}

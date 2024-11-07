@@ -1,0 +1,16 @@
+= content_for :html_class, "h-full"
+= content_for :body_class, "h-full"
+= content_for :main_class, "min-h-full"
+%div{class: "py-6"}
+	%header
+		%div{class: "mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"}
+			%h1{class: "text-3xl font-bold"}
+				= "Edit #{@property.name}"
+
+%div{class: "py-2"}
+	%div{class: "mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"}
+		%p{class: "mt-1 text-sm/6 text-gray-600"}
+			This property provides a container to bundle all your offers for a particular digital property.
+			%br
+			Upon creation of this property, unique API Key and Secret are generated to use for API Calls.
+		= render partial: "form", locals: {property: @property}

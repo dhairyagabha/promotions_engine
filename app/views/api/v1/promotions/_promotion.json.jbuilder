@@ -1,0 +1,1 @@
+json.extract! promotion, :name, :short_description, :description, :code, :link, :start, :end, :rank, :status

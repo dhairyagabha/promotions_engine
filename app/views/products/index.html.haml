@@ -1,0 +1,36 @@
+= content_for :html_class, "h-full"
+= content_for :body_class, "h-full"
+= content_for :main_class, "min-h-full"
+= render partial: "properties/header", locals: {property: @property}
+%div{class: "py-2"}
+	%div{class: "mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 sm:border-b sm:border-gray-200 flex items-center justify-between"}
+		%div{class: "sm:hidden", data:{controller: "select-navigation"}}
+			%label{class: "sr-only", for: "tabs"}
+				Select a tab
+			%select{id: "tabs", name: "tabs", class: "block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-gray-500 focus:outline-none focus:ring-gray-500 sm:text-sm", data:{action: "change->select-navigation#navigate"}}
+				%option{data:{url: property_path(@property)}, selected: (controller_name === "properties")} Promotions
+				%option{data:{url: property_variables_path(@property)}, selected: (controller_name === "variables")} Variables
+				%option{data:{url: property_products_path(@property)}, selected: (controller_name === "products")} Product SKUs
+		%div{class: "hidden sm:block"}
+			%div{class: "border-b border-gray-200"}
+				%nav{class: "-mb-px flex space-x-8", "aria-label": "Tabs"}
+					= link_to "Promotions", property_path(@property), class: "whitespace-nowrap border-b-2 border-transparent px-1 py-4 text-md font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+					= link_to "Variables", property_variables_path(@property), class: "whitespace-nowrap border-b-2 border-transparent px-1 py-4 text-md font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+					= link_to "Product SKUs", property_products_path(@property), class: "whitespace-nowrap border-b-2 border-fuchsia-500 px-1 py-4 text-md font-medium text-fuchsia-600"
+%div{class: "py-2"}
+	%div{class: "mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"}
+		%p.my-2.italic.text-sm
+			*All the products listed here are uploaded as part of promotions logic. No additional products can be uploaded unless through Promotions Configuration.
+		%div{class: "overflow-scroll rounded-md border border-gray-300 bg-white h-96"}
+			%ul{role: "list", class: "divide-y divide-gray-300"}
+				- if @property.products.any?
+					= render @property.products
+				- else
+					%li{class: "px-6 py-4"}
+						.relative.h-16.overflow-hidden.rounded.border.border-dashed.border-gray-400.opacity-75.flex.justify-center
+							%span.text-center.my-5 Products will appears once they are uploaded for any promotions.
+							%svg.absolute.inset-0.h-full.w-full{class: "stroke-gray-900/10", fill: "none"}
+								%defs
+									%pattern#pattern-68d31db3-811c-4e14-a36d-77b54bde9805{height: "10", patternunits: "userSpaceOnUse", width: "10", x: "0", y: "0"}
+										%path{d: "M-3 13 15-5M-5 5l18-18M-1 21 17 3"}
+								%rect{fill: "url(#pattern-68d31db3-811c-4e14-a36d-77b54bde9805)", height: "100%", stroke: "none", width: "100%"}

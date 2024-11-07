@@ -1,0 +1,18 @@
+= form_tag import_property_products_path, method: :post, multipart: true, class: "overflow-hidden rounded-lg bg-white shadow grid grid-cols-1 md:grid-cols-3 px-4 py-5 sm:p-6" do
+    %div{class: "col-span-1"}
+        = hidden_field_tag :promotion_id, promotion.id
+        = label_tag :file, "Import products", class: "block text-md font-bold text-gray-900 mb-4"
+        = file_field_tag :file, accept: ".csv"
+    %div{class: "col-span-1"}
+        = field_set_tag "" do
+            %p{class: "mt-2 text-sm/6 text-gray-600"}
+                How should these products be treated?
+            %div{class: "mt-2 space-y-6 md:flex md:items-center md:space-x-10 md:space-y-0"}
+                %div{class: "flex items-center"}
+                    = radio_button_tag :relationship, :include, {class: "h-4 w-4 border-gray-300 text-gray-950 focus:ring-gray-600"}
+                    = label_tag :relationship_include, "Include products", class: "ml-3 block text-sm/6 font-medium text-gray-900"
+                %div{class: "flex items-center"}
+                    = radio_button_tag :relationship, :exclude, {class: "h-4 w-4 border-gray-300 text-gray-950 focus:ring-gray-600"}
+                    = label_tag :relationship_exclude, "Exclude products", class: "ml-3 block text-sm/6 font-medium text-gray-900"
+    %div{class: "col-span-1 text-right my-4"}
+        = submit_tag "Import", class: "text-sm cursor-pointer px-4 py-[calc(theme(spacing.2)-1px)] rounded-full border border-transparent bg-gray-950 shadow-sm whitespace-nowrap text-base font-medium text-white disabled:bg-gray-950 hover:bg-gray-800 disabled:opacity-40"

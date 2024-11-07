@@ -1,0 +1,47 @@
+= form_with model: variable, url: (variable.persisted? ? property_variable_path(property, variable) : property_variables_path(property)), html: {data: {turbo: false}} do |f|
+    %div{class: "mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6"}
+        %div{class: "sm:col-span-3"}
+            = f.label :name, class: "block text-sm/6 font-medium text-gray-900"
+            %small.text-gray-600
+                Name for the variable is simply for the purposes of user-friendly conditional building.
+            %div.mt-2
+                = f.text_field :name, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm/6"            
+            - if variable.errors.any? && variable.errors[:name]
+                %p{class: "mt-2 text-sm text-red-600", id: "name-error"}
+                    Name cannot be blank.
+        %div{class: "sm:col-span-3"}
+            = f.label :key, class: "block text-sm/6 font-medium text-gray-900"
+            %small.text-gray-600
+                This is the key that is required to be passed in the URL to send the value to the API.
+            %div.mt-2
+                = f.text_field :key, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm/6"            
+            - if variable.errors.any? && variable.errors[:key]
+                %p{class: "mt-2 text-sm text-red-600", id: "name-error"}
+                    Key cannot be blank.
+        %div{class: "sm:col-span-6"}
+            = f.label :description, class: "block text-sm/6 font-medium text-gray-900"
+            %small.text-gray-600
+                Description helps explain the purpose of the variable. Include any details that might be useful while building conditions.
+            %div.mt-2
+                = f.text_area :description, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm/6", rows: 3
+            - if variable.errors.any? && variable.errors[:description]
+                %p{class: "mt-2 text-sm text-red-600", id: "name-error"}
+                    Description cannot be blank.
+        %div{class: "sm:col-span-3"}
+            = f.label :value_type, class: "block text-sm/6 font-medium text-gray-900"
+            %small.text-gray-600
+                Please set the value type to one of the following.
+            %div.mt-2
+                = f.select :value_type, Variable.value_types.map{|vt, v| [vt.capitalize, vt.to_sym]}, {include_blank: false}, {class: "mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-gray-600 sm:text-sm/6"}
+            - if variable.errors.any? && variable.errors[:value_type]
+                %p{class: "mt-2 text-sm text-red-600", id: "name-error"}
+                    Value Type cannot be blank.
+        %div{class: "sm:col-span-3"}
+            = f.label :possible_values, class: "block text-sm/6 font-medium text-gray-900"
+            %small.text-gray-600
+                Provide a comma-separated list of values here to restrict the variable to a specific set of options.
+            %div.mt-2
+                = f.text_field :possible_values, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm/6"            
+    %div{class: "mt-6 flex items-center gap-x-6"}
+        = f.submit "Save variable", class: "cursor-pointer inline-flex items-center justify-center px-4 py-[calc(theme(spacing.2)-1px)] rounded-full border border-transparent bg-gray-950 shadow-md whitespace-nowrap text-base font-medium text-white disabled:bg-gray-950 hover:bg-gray-800 disabled:opacity-40"
+        = link_to "Cancel", property_variables_path(property), class: "cursor-pointer inline-flex items-center justify-center px-4 py-[calc(theme(spacing.2)-1px)] rounded-full border border-gray-950 bg-transparent shadow-md whitespace-nowrap text-base font-medium hover:text-white disabled:bg-gray-950 hover:bg-gray-800 disabled:opacity-40"

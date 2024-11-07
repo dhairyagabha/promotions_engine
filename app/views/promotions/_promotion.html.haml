@@ -1,0 +1,24 @@
+%li{class: "relative flex flex-wrap items-center justify-between gap-x-6 gap-y-4 py-5 sm:flex-nowrap"}
+    %div
+        %p{class: "text-md/6 font-semibold text-gray-900"}
+            = link_to property_promotion_path(@property, promotion), class: "hover:underline" do
+                %span{class: "absolute inset-0"}
+                #{"# " + promotion.rank.to_s} | #{promotion.name}
+        %div{class: "mt-1 flex items-center gap-x-2 text-sm text-gray-500"}
+            #{promotion.short_description}
+        - if (promotion.start || promotion.end)
+            %div{class: "mt-1 flex items-center gap-x-2 text-xs/5 text-gray-500"}
+                #{promotion.start ? promotion.start.strftime("%b %d, %Y") : "Publish Date"} to #{promotion.end.strftime("%b %d, %Y")}
+    %div
+        %div{class: "mt-1 flex items-center gap-x-1.5"}
+            - case promotion.status
+            - when "pending"
+                %div{class: "flex-none rounded-full bg-amber-500/20 p-1"}
+                    %div{class: "h-1.5 w-1.5 rounded-full bg-amber-500"}
+            - when "active"
+                %div{class: "flex-none rounded-full bg-emerald-500/20 p-1"}
+                    %div{class: "h-1.5 w-1.5 rounded-full bg-emerald-500"}
+            - when "archived"
+                %div{class: "flex-none rounded-full bg-fuchsia-500/20 p-1"}
+                    %div{class: "h-1.5 w-1.5 rounded-full bg-fuchia-500"}
+            %p{class: "text-xs/5 text-gray-500"} #{promotion.status.capitalize}

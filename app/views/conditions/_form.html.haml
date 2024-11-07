@@ -1,0 +1,15 @@
+= form_with model: condition, url: (condition.persisted? ? property_promotion_condition_path(property, promotion, condition) : property_promotion_conditions_path(property, promotion)), html: {data: {turbo: false, controller: "nested-form", nested_form_wrapper_selector_value: ".nested-form-wrapper"}, class: "rounded border border-dashed border-gray-950 p-2"} do |f|
+    = render partial: "groups/template", locals: {condition: condition, f: f}
+    %div{class: "grid md:grid-cols-2"}
+        %div
+            %h2{class: "text-base/7 font-semibold text-gray-900"} Additional Conditions
+            %p{class: "mt-1 text-sm/6 text-gray-600"} Configure the additional attributes based conditions for the promotion.
+        %div{class: "flex gap-2 justify-end items-center", data:{controller: "logicby"}}
+            %button{data:{action: "nested-form#add"}, class: "text-sm cursor-pointer px-4 py-[calc(theme(spacing.2)-1px)] rounded-full border border-transparent bg-gray-950 shadow-sm whitespace-nowrap text-base font-medium text-white disabled:bg-gray-950 hover:bg-gray-800 disabled:opacity-40"} Add Group
+            = f.select :by, Condition::BY, {}, {class: "block rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-gray-900 focus:outline-none focus:ring-gray-900 sm:text-sm", data:{action: "change->logicby#updateDividers", target: ".condition-by"}}
+    %div{class: "my-4"}
+        = f.fields_for :groups, (condition.groups.any? ? condition.groups : condition.groups.build) do |group_fields|
+            = render partial: "groups/form", locals: {f: group_fields}
+        %div{data:{"nested-form-target": "target"}}
+    %div{class: "mt-4 text-right"}
+        = f.submit "Save Condition", class: "cursor-pointer inline-flex items-center justify-center px-4 py-[calc(theme(spacing.2)-1px)] rounded-full border border-transparent bg-gray-950 shadow-md whitespace-nowrap text-base font-medium text-white disabled:bg-gray-950 hover:bg-gray-800 disabled:opacity-40"

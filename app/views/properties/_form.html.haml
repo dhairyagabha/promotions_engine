@@ -1,0 +1,12 @@
+= form_with model: property, html: {data: {turbo: false}} do |f|
+    %div{class: "mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6"}
+        %div{class: "sm:col-span-4"}
+            = f.label :name, class: "block font-medium text-gray-900"
+            %div{class: "mt-2"}
+                %div{class: "flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-gray-600 sm:max-w-md"}
+                    = f.text_field :name, class: "block flex-1 border-0 bg-transparent py-1.5 px-3 text-gray-900 placeholder:text-gray-400 focus:ring-0"
+            - if property.errors.any? && property.errors[:name]
+                %p{class: "mt-2 text-sm text-red-600", id: "name-error"}
+                    = property.errors.full_messages.first
+    %div{class: "mt-6 flex items-center gap-x-6"}
+        = f.submit "Save Property", class: "cursor-pointer inline-flex items-center justify-center px-4 py-[calc(theme(spacing.2)-1px)] rounded-full border border-transparent bg-gray-950 shadow-md whitespace-nowrap text-base font-medium text-white disabled:bg-gray-950 hover:bg-gray-800 disabled:opacity-40"

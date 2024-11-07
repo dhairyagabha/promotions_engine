@@ -1,0 +1,16 @@
+= content_for :html_class, "h-full"
+= content_for :body_class, "h-full"
+= content_for :main_class, "min-h-full"
+%div{class: "py-6"}
+	%header
+		%div{class: "mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"}
+			%h1{class: "text-3xl font-bold"}
+				New Variable
+
+%div{class: "py-2"}
+	%div{class: "mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"}
+		%p{class: "mt-1 text-sm/6 text-gray-600"}
+			Variables are acceptable parameters for a Property by the API to further conditionally deliver the promotions.
+			%br
+			Please read the instructions provided for further context of the configuration.
+		= render partial: "form", locals: {property: @property, variable: @variable}

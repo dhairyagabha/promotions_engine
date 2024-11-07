@@ -1,0 +1,76 @@
+= form_with model: promotion, url: (promotion.persisted? ? property_promotion_path(property, promotion) : property_promotions_path(property)), html: {data: {turbo: false}} do |f|
+    %div{class: "mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6"}
+        %div{class: "sm:col-span-1"}
+            = f.label :rank, class: "block text-sm/6 font-medium text-gray-900"
+            %small.text-gray-600
+                Stack ranking
+            %div.mt-2
+                = f.text_field :rank, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm/6"
+            - if promotion.errors.any? && promotion.errors[:rank]
+                %p{class: "mt-2 text-sm text-red-600", id: "name-error"}
+                    Rank cannot be blank and cannot be duplicated.
+        %div{class: "sm:col-span-5"}
+            = f.label :name, class: "block text-sm/6 font-medium text-gray-900"
+            %small.text-gray-600
+                This is the title for the promotion. Will be presented as title.
+            %div.mt-2
+                = f.text_field :name, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm/6"
+            - if promotion.errors.any? && promotion.errors[:name]
+                %p{class: "mt-2 text-sm text-red-600", id: "name-error"}
+                    Name cannot be blank.
+        %div{class: "sm:col-span-3"}
+            = f.label :short_description, class: "block text-sm/6 font-medium text-gray-900"
+            %small.text-gray-600
+                Short description of the promo prior to clicking learn more.
+            %div.mt-2
+                = f.text_area :short_description, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm/6", rows: 3
+            - if promotion.errors.any? && promotion.errors[:short_description]
+                %p{class: "mt-2 text-sm text-red-600", id: "name-error"}
+                    Short description cannot be blank.
+        %div{class: "sm:col-span-3"}
+            = f.label :description, class: "block text-sm/6 font-medium text-gray-900"
+            %small.text-gray-600
+                Detailed description to present after clicking learn more.
+            %div.mt-2
+                = f.text_area :description, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm/6", rows: 3
+            - if promotion.errors.any? && promotion.errors[:description]
+                %p{class: "mt-2 text-sm text-red-600", id: "name-error"}
+                    Description cannot be blank.
+        %div{class: "sm:col-span-3"}
+            = f.label :code, class: "block text-sm/6 font-medium text-gray-900"
+            %small.text-gray-600
+                This is the actual promotional code that is required to be submitted during checkout.
+            %div.mt-2
+                = f.text_field :code, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm/6"            
+            - if promotion.errors.any? && promotion.errors[:code]
+                %p{class: "mt-2 text-sm text-red-600", id: "name-error"}
+                    Code cannot be blank.
+        %div{class: "sm:col-span-3"}
+            = f.label :link, class: "block text-sm/6 font-medium text-gray-900"
+            %small.text-gray-600
+                This is a link to the promotions details page for more information.
+            %div.mt-2
+                = f.text_field :link, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm/6"            
+            - if promotion.errors.any? && promotion.errors[:link]
+                %p{class: "mt-2 text-sm text-red-600", id: "name-error"}
+                    Link cannot be blank.
+        %div{class: "sm:col-span-3"}
+            = f.label :start_date, class: "block text-sm/6 font-medium text-gray-900"
+            %small.text-gray-600
+                This is the actual promotional code that is required to be submitted during checkout.
+            %div.mt-2
+                = f.date_field :start, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm/6"            
+        %div{class: "sm:col-span-3"}
+            = f.label :end_date, class: "block text-sm/6 font-medium text-gray-900"
+            %small.text-gray-600
+                This is the actual promotional code that is required to be submitted during checkout.
+            %div.mt-2
+                = f.date_field :end, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm/6"            
+    %div{class: "mt-6 flex items-center gap-x-6"}
+        = f.submit "Save Promotion", class: "cursor-pointer inline-flex items-center justify-center px-4 py-[calc(theme(spacing.2)-1px)] rounded-full border border-transparent bg-gray-950 shadow-md whitespace-nowrap text-base font-medium text-white disabled:bg-gray-950 hover:bg-gray-800 disabled:opacity-40"
+        = link_to "Cancel", promotion.persisted? ? property_promotion_path(property, promotion) : property_path(property), class: "cursor-pointer inline-flex items-center justify-center px-4 py-[calc(theme(spacing.2)-1px)] rounded-full border border-gray-950 bg-transparent shadow-md whitespace-nowrap text-base font-medium hover:text-white disabled:bg-gray-950 hover:bg-gray-800 disabled:opacity-40"
+        - if promotion.persisted?
+            = link_to property_promotion_conditions_path(property, promotion), class: "cursor-pointer inline-flex items-center justify-center px-4 py-[calc(theme(spacing.2)-1px)] rounded-full border border-transparent bg-gray-950 shadow-md whitespace-nowrap text-base font-medium text-white disabled:bg-gray-950 hover:bg-gray-800 disabled:opacity-40" do
+                Edit Conditions
+                %svg.size-6{fill: "none", stroke: "currentColor", "stroke-width" => "1.5", viewbox: "0 0 24 24", xmlns: "http://www.w3.org/2000/svg"}
+                    %path{d: "M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3", "stroke-linecap" => "round", "stroke-linejoin" => "round"}

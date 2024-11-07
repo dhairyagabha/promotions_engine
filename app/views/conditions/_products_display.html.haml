@@ -1,0 +1,33 @@
+%div{class: "grid grid-cols-1 md:grid-cols-2 gap-4"}
+    %div{class: "divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow"}
+        %div{class: "px-2 py-3 sm:px-6 bg-gray-950 text-white"}
+            Included Products
+        %div{class: "p-0 overflow-scroll h-48"}
+            %ul{role: "list", class: "divide-y divide-gray-300 h-full"}
+                - if products[:included].length > 0
+                    = render partial: "products/product", collection: products[:included]
+                - else
+                    %li{class: "px-6 py-4 h-full"}
+                        .relative.h-full.overflow-hidden.rounded.border.border-dashed.border-gray-950.opacity-75.flex.justify-center
+                            %span.text-center.my-5 No specific products uploaded for inclusion.
+                            %svg.absolute.inset-0.h-full.w-full{class: "stroke-gray-950/10", fill: "none"}
+                                %defs
+                                    %pattern#pattern-68d31db3-811c-4e14-a36d-77b54bde9805{height: "10", patternunits: "userSpaceOnUse", width: "10", x: "0", y: "0"}
+                                        %path{d: "M-3 13 15-5M-5 5l18-18M-1 21 17 3"}
+                                %rect{fill: "url(#pattern-68d31db3-811c-4e14-a36d-77b54bde9805)", height: "100%", stroke: "none", width: "100%"}
+    %div{class: "divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow"}
+        %div{class: "px-2 py-3 sm:px-6 bg-gray-950 text-white"}
+            Excluded Products
+        %div{class: "p-0 overflow-scroll h-48"}
+            %ul{role: "list", class: "divide-y divide-gray-300 h-full"}
+                - if products[:excluded].length > 0
+                    = render partial: "products/product", collection: products[:excluded]
+                - else
+                    %li{class: "px-6 py-4 h-full"}
+                        .relative.h-full.overflow-hidden.rounded.border.border-dashed.border-gray-950.opacity-75.flex.justify-center
+                            %span.text-center.my-5 No specific products uploaded for exclusion.
+                            %svg.absolute.inset-0.h-full.w-full{class: "stroke-gray-950/10", fill: "none"}
+                                %defs
+                                    %pattern#pattern-68d31db3-811c-4e14-a36d-77b54bde9805{height: "10", patternunits: "userSpaceOnUse", width: "10", x: "0", y: "0"}
+                                        %path{d: "M-3 13 15-5M-5 5l18-18M-1 21 17 3"}
+                                %rect{fill: "url(#pattern-68d31db3-811c-4e14-a36d-77b54bde9805)", height: "100%", stroke: "none", width: "100%"}
